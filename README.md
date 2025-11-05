@@ -460,8 +460,8 @@ This project is licensed under the MIT License. See LICENSE file for details.
 
 For questions, issues, or collaboration opportunities:
 - Create an issue in the repository
-- Email: your.email@example.com
-- LinkedIn: [Your Profile]
+- Email: davidmadison95@yahoo.com
+- LinkedIn: [https://www.linkedin.com/in/davidmadison95/]
 
 ---
 
