@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  # Flask API Service
+  api:
+    build: .
+    container_name: fraud-detection-api
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./reports:/app/reports
+    command: python serve_api.py
+    environment:
+      - FLASK_ENV=production
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - fraud-detection-network
+
+  # Streamlit Dashboard Service
+  dashboard:
+    build: .
+    container_name: fraud-detection-dashboard
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./reports:/app/reports
+    command: streamlit run app_dashboard.py --server.address=0.0.0.0
+    restart: unless-stopped
+    networks:
+      - fraud-detection-network
+
+networks:
+  fraud-detection-network:
+    driver: bridge
+
+volumes:
+  data:
+  models:
+  reports:
+
+# ==============================================================================
+# Usage Instructions
+# ==============================================================================
+#
+# Start all services:
+#   docker-compose up -d
+#
+# View logs:
+#   docker-compose logs -f
+#
+# Stop all services:
+#   docker-compose down
+#
+# Rebuild and restart:
+#   docker-compose up -d --build
+#
+# Access services:
+#   API: http://localhost:5000
+#   Dashboard: http://localhost:8501
+#
+# Run one-time commands:
+#   docker-compose run --rm api python generate_data.py
+#   docker-compose run --rm api python train.py
+#
+# ==============================================================================
