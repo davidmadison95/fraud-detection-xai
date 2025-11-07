@@ -167,7 +167,7 @@ fraud-xai/
 
 ### Step 1: Clone Repository
 ```bash
-git clone https://github.com/YOUR_USERNAME/fraud-detection-xai.git
+git clone https://github.com/davidmadison95/fraud-detection-xai
 cd fraud-detection-xai
 ```
 
